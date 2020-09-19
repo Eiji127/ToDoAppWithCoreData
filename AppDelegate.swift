@@ -1,17 +1,10 @@
-//
-//  AppDelegate.swift
-//  ToDoAppWithCoreData
-//
-//  Created by 白数叡司 on 2020/09/12.
-//  Copyright © 2020 AEG. All rights reserved.
-//
 
 import UIKit
 import CoreData
 
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {

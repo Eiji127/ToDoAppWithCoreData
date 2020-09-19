@@ -2,6 +2,7 @@
 import UIKit
 import CoreData
 
+
 class TableViewController: UITableViewController {
     
     var myList: Array<AnyObject> = []
@@ -45,15 +46,12 @@ class TableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath?) -> UITableViewCell {
         let CellID: NSString = "Cell"
-        var Cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: CellID as! String) as! UITableViewCell
+        let Cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: CellID as String)!
         if let ip = indexPath {
-        var data : NSManagedObject = myList[ip.row] as! NSManagedObject
-            var itemText = data.value(forKeyPath: "item") as! String
-            var qnt = data.value(forKeyPath: "quantity") as! String
-            var info = data.value(forKeyPath: "info") as! String
+            let data : NSManagedObject = myList[ip.row] as! NSManagedObject
+            let itemText = data.value(forKeyPath: "item") as! String
             Cell.textLabel?.text = itemText
-            Cell.detailTextLabel?.text = "\(qnt) , \(info)"
-            
+            Cell.detailTextLabel?.text = nil
         }
         return Cell
     }
@@ -61,9 +59,14 @@ class TableViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "update" {
             let row = self.tableView?.indexPathForSelectedRow?.row ?? 0
-            var selectedItem: NSManagedObject = myList[row] as! NSManagedObject
+            let selectedItem: NSManagedObject = myList[row] as! NSManagedObject
             let IVC: ListViewController = segue.destination as! ListViewController
             IVC.item = selectedItem.value(forKeyPath: "item") as! String
+            IVC.detail = selectedItem.value(forKey: "detail") as! String
+            IVC.beginDate = selectedItem.value(forKey: "beginDate") as? Date
+            IVC.beginTime = selectedItem.value(forKey: "beginTime") as? Date
+            IVC.endDate = selectedItem.value(forKey: "endDate") as? Date
+            IVC.endTime = selectedItem.value(forKey: "endTime") as? Date
             IVC.exitingItem = selectedItem
         }
     }
