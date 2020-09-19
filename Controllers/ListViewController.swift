@@ -28,7 +28,6 @@ class ListViewController: UIViewController {
     @IBOutlet var endDateButton: UIButton!
     @IBOutlet var endTimeButton: UIButton!
     
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,17 +91,17 @@ class ListViewController: UIViewController {
     @IBAction func tapBeginDateButton(_ sender: UIButton) {
         if !self.beginTimePicker.isHidden {
                tapBeginTimeButton(beginTimeButton)
-           } else if !self.endDatePicker.isHidden {
-               tapEndDateButton(endDateButton)
-           } else if !self.endTimePicker.isHidden {
-               tapEndTimeButton(endTimeButton)
-           }
-           UIView.animate(withDuration: 0.1, animations: {
-               self.beginDatePicker.isHidden = !self.beginDatePicker.isHidden
-           })
-           dateFormatter.setLocalizedDateFormatFromTemplate("yMMdE")
-           beginDateButton.setTitle("\(dateFormatter.string(from: beginDatePicker.date))", for: UIControl.State.normal)
-       }
+        } else if !self.endDatePicker.isHidden {
+            tapEndDateButton(endDateButton)
+        } else if !self.endTimePicker.isHidden {
+            tapEndTimeButton(endTimeButton)
+        }
+        UIView.animate(withDuration: 0.1, animations: {
+            self.beginDatePicker.isHidden = !self.beginDatePicker.isHidden
+        })
+        dateFormatter.setLocalizedDateFormatFromTemplate("yMMdE")
+        beginDateButton.setTitle("\(dateFormatter.string(from: beginDatePicker.date))", for: UIControl.State.normal)
+    }
        
     @IBAction func tapBeginTimeButton(_ sender: UIButton) {
         if !self.beginDatePicker.isHidden {
@@ -149,4 +148,27 @@ class ListViewController: UIViewController {
         endTimeButton.setTitle("\(timeFormatter.string(from: endTimePicker.date))", for: UIControl.State.normal)
     }
     
+    //キーボード表示
+    private func setupNotificationObserver() {
+           NotificationCenter.default.addObserver(self, selector: #selector(showKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
+           NotificationCenter.default.addObserver(self, selector: #selector(hideKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
+       }
+    
+    @objc func showKeyboard(notification: Notification) {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: [], animations: {
+            self.view.transform = .identity
+        })
+
+    }
+
+    @objc func hideKeyboard() {
+        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: [], animations: {
+            self.view.transform = .identity
+        })
+    }
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
 }
+
