@@ -43,7 +43,7 @@
                             <outlet property="delegate" destination="ZuI-n8-V7W" id="e8u-aq-ymy"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Your ToDo!!!" id="ANh-U3-NjS">
+                    <navigationItem key="navigationItem" title="Your ToDo!!!" largeTitleDisplayMode="always" id="ANh-U3-NjS">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="8QN-oO-n13">
                             <connections>
                                 <segue destination="BYZ-38-t0r" kind="show" id="ozr-sB-a0t"/>
@@ -97,7 +97,7 @@
                                                             <constraint firstAttribute="width" constant="20" id="Nrc-kv-Pfh"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="To Do Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hP4-bO-d8M">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ToDo Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hP4-bO-d8M">
                                                         <rect key="frame" x="20" y="0.0" width="315" height="20"/>
                                                         <fontDescription key="fontDescription" name="Symbol" family="Symbol" pointSize="18"/>
                                                         <nil key="textColor"/>

@@ -17,7 +17,6 @@ class TableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.addBackground(name: "854F4A80-24D7-4532-B1CE-0846B097E07E.jpg")
         navigationItem.leftBarButtonItem = editButtonItem
     }
     

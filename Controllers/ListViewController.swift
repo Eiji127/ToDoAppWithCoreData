@@ -3,7 +3,7 @@ import UIKit
 import CoreData
 
 
-class ListViewController: UIViewController {
+class ListViewController: UIViewController, UITextViewDelegate {
     
     public var item: String = ""
     public var detail: String = ""
@@ -18,7 +18,8 @@ class ListViewController: UIViewController {
     
     let dateFormatter = DateFormatter()
     let timeFormatter = DateFormatter()
-
+    
+    @IBOutlet var scrollView: UIScrollView?
     @IBOutlet var beginDatePicker: UIDatePicker!
     @IBOutlet var beginTimePicker: UIDatePicker!
     @IBOutlet var beginDateButton: UIButton!
@@ -31,6 +32,9 @@ class ListViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        detailTextView.delegate = self
+        
         if(exitingItem != nil){
             textFieldItem.text = item
             detailTextView.text = detail
@@ -39,18 +43,24 @@ class ListViewController: UIViewController {
             endDatePicker.date = endDate!
             endTimePicker.date = endTime!
         }
-        
+        setDateAndTime()
+        setDetailTextView()
+    }
+    
+    private func setDetailTextView() {
+        detailTextView.layer.borderColor = UIColor.black.cgColor
+        detailTextView.layer.borderWidth = 1.0
+        detailTextView.layer.cornerRadius = 10
+        detailTextView.layer.masksToBounds = true
+    }
+    
+    private func setDateAndTime() {
         dateFormatter.setLocalizedDateFormatFromTemplate("yMMdE")
         timeFormatter.setLocalizedDateFormatFromTemplate("jm")
         beginDateButton.setTitle("\(dateFormatter.string(from: beginDatePicker.date))", for: UIControl.State.normal)
         beginTimeButton.setTitle("\(timeFormatter.string(from: beginTimePicker.date))", for: UIControl.State.normal)
         endDateButton.setTitle("\(dateFormatter.string(from: endDatePicker.date))", for: UIControl.State.normal)
         endTimeButton.setTitle("\(timeFormatter.string(from: endTimePicker.date))", for: UIControl.State.normal)
-        
-        detailTextView.layer.borderColor = UIColor.black.cgColor
-        detailTextView.layer.borderWidth = 1.0
-        detailTextView.layer.cornerRadius = 10
-        detailTextView.layer.masksToBounds = true
     }
     
     @IBAction func tappedSaveButton(sender: AnyObject) {
@@ -63,7 +73,7 @@ class ListViewController: UIViewController {
     }
     
     @IBAction func tappedCancelButton(sender: AnyObject) {
-        self.navigationController?.popToRootViewController(animated: true)
+        tapCancelButtonAlert()
     }
     
     private func changeToDoContents() {
@@ -79,7 +89,7 @@ class ListViewController: UIViewController {
         let appDel: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         let context: NSManagedObjectContext = appDel.managedObjectContext!
         let en = NSEntityDescription.entity(forEntityName: "List", in: context)
-        var newItem = Model(entity: en!, insertInto: context)
+        let newItem = Model(entity: en!, insertInto: context)
         newItem.item = textFieldItem.text
         newItem.detail = detailTextView.text
         newItem.beginDate = beginDatePicker.date
@@ -90,7 +100,7 @@ class ListViewController: UIViewController {
     
     @IBAction func tapBeginDateButton(_ sender: UIButton) {
         if !self.beginTimePicker.isHidden {
-               tapBeginTimeButton(beginTimeButton)
+            tapBeginTimeButton(beginTimeButton)
         } else if !self.endDatePicker.isHidden {
             tapEndDateButton(endDateButton)
         } else if !self.endTimePicker.isHidden {
@@ -148,27 +158,72 @@ class ListViewController: UIViewController {
         endTimeButton.setTitle("\(timeFormatter.string(from: endTimePicker.date))", for: UIControl.State.normal)
     }
     
-    //キーボード表示
-    private func setupNotificationObserver() {
-           NotificationCenter.default.addObserver(self, selector: #selector(showKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
-           NotificationCenter.default.addObserver(self, selector: #selector(hideKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
-       }
-    
-    @objc func showKeyboard(notification: Notification) {
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: [], animations: {
-            self.view.transform = .identity
-        })
-
-    }
-
-    @objc func hideKeyboard() {
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: [], animations: {
-            self.view.transform = .identity
-        })
-    }
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
+        if !self.beginDatePicker.isHidden {
+            tapBeginDateButton(beginDateButton)
+        } else if !self.beginTimePicker.isHidden{
+            tapBeginTimeButton(beginTimeButton)
+        } else if !self.endDatePicker.isHidden {
+            tapEndDateButton(endDateButton)
+        } else if !self.endTimePicker.isHidden {
+            tapEndTimeButton(endTimeButton)
+        }
     }
     
+    private func tapCancelButtonAlert() {
+        let alertController: UIAlertController = UIAlertController(title: "", message: "ToDoの内容が保存されていません。\nホームに戻ってもよろしいですか？", preferredStyle: .alert)
+        let noAction: UIAlertAction = UIAlertAction(title: "No", style: .cancel) { action -> Void in
+            alertController.dismiss(animated: false, completion: nil)
+        }
+        let yesAction: UIAlertAction = UIAlertAction(title: "Yes", style: .default) { action -> Void in
+            self.navigationController?.popToRootViewController(animated: true)
+        }
+        alertController.addAction(noAction)
+        alertController.addAction(yesAction)
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    
+    
+//    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
+//        setupNotificationObserver()
+//        return true
+//    }
+    
+//    func setupNotificationObserver() {
+//        NotificationCenter.default.addObserver(self, selector: #selector(showKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
+//        NotificationCenter.default.addObserver(self, selector: #selector(hideKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
+//    }
+//
+//    @objc func showKeyboard(notification: Notification) {
+////        let userInfo = notification.userInfo!
+////        let keyboardScreenEndFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+////        let myBoundSize: CGSize = UIScreen.main.bounds.size
+////        let txtLimit = detailTextView.frame.origin.y + detailTextView.frame.height + 8.0
+////        let kbdLimit = myBoundSize.height - keyboardScreenEndFrame.size.height
+////        let distance = txtLimit - kbdLimit
+////        print("テキストフィールドの下辺：(\(txtLimit))")
+////        print("キーボードの上辺：(\(kbdLimit))")
+////
+////        let transform = CGAffineTransform(translationX: 0, y: distance)
+////        if txtLimit >= kbdLimit {
+////            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: [], animations: {
+////                self.view.transform = transform
+////            })
+////        }
+//        let transform = CGAffineTransform(translationX: 0, y: 300)
+//        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: [], animations: {
+//            self.view.transform = transform
+//        })
+//
+//    }
+//    @objc func hideKeyboard() {
+//        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: [], animations: {
+//            self.view.transform = .identity
+//        })
+//    }
+    
+  
 }
 
