@@ -12,12 +12,16 @@ class TableViewController: UITableViewController {
         let context: NSManagedObjectContext = appDel.managedObjectContext!
         let freg = NSFetchRequest<NSFetchRequestResult>(entityName: "List")
         myList = try! context.fetch(freg)
-        tableView.reloadData()
+        self.tableView.reloadData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.leftBarButtonItem = editButtonItem
+//        navigationItem.leftBarButtonItem = editButtonItem
+    }
+    
+    @IBAction func TappedMaintenaceButton(_ sender: AnyObject) {
+        print("\(myList)")
     }
     
     override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
@@ -35,7 +39,6 @@ class TableViewController: UITableViewController {
     }
 
     // MARK: - Table view data source
-
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -80,6 +83,8 @@ class TableViewController: UITableViewController {
         } else if editingStyle == .insert {
 
         }
+        
     }
    
 }
+

@@ -15,11 +15,11 @@ class ListViewController: UIViewController, UITextViewDelegate {
     
     @IBOutlet var textFieldItem: UITextField!
     @IBOutlet var detailTextView: UITextView!
+    @IBOutlet var saveButton: UIButton!
     
     let dateFormatter = DateFormatter()
     let timeFormatter = DateFormatter()
     
-    @IBOutlet var scrollView: UIScrollView?
     @IBOutlet var beginDatePicker: UIDatePicker!
     @IBOutlet var beginTimePicker: UIDatePicker!
     @IBOutlet var beginDateButton: UIButton!
@@ -32,6 +32,8 @@ class ListViewController: UIViewController, UITextViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        saveButton.layer.cornerRadius = 10
         
 //        detailTextView.delegate = self
         
@@ -66,15 +68,21 @@ class ListViewController: UIViewController, UITextViewDelegate {
     @IBAction func tappedSaveButton(sender: AnyObject) {
         if (exitingItem != nil) {
             changeToDoContents()
+            print("あら")
         } else {
             createToDoContents()
+            print("でた")
         }
-        self.navigationController?.popToRootViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
+//        let tableViewController = self.storyboard?.instantiateViewController(withIdentifier: "table") as! TableViewController
+//        self.present(tableViewController, animated: true, completion: nil)
+        
+//        self.navigationController?.popToRootViewController(animated: true)
     }
-    
-    @IBAction func tappedCancelButton(sender: AnyObject) {
-        tapCancelButtonAlert()
-    }
+        
+//    @IBAction func tappedCancelButton(sender: AnyObject) {
+//        tapCancelButtonAlert()
+//    }
     
     private func changeToDoContents() {
         exitingItem.setValue(textFieldItem.text, forKey: "item")
@@ -96,6 +104,8 @@ class ListViewController: UIViewController, UITextViewDelegate {
         newItem.beginTime = beginTimePicker.date
         newItem.endDate = endDatePicker.date
         newItem.endTime = endTimePicker.date
+        try! context.save()
+        print("\(newItem)")
     }
     
     @IBAction func tapBeginDateButton(_ sender: UIButton) {
@@ -171,18 +181,18 @@ class ListViewController: UIViewController, UITextViewDelegate {
         }
     }
     
-    private func tapCancelButtonAlert() {
-        let alertController: UIAlertController = UIAlertController(title: "", message: "ToDoの内容が保存されていません。\nホームに戻ってもよろしいですか？", preferredStyle: .alert)
-        let noAction: UIAlertAction = UIAlertAction(title: "No", style: .cancel) { action -> Void in
-            alertController.dismiss(animated: false, completion: nil)
-        }
-        let yesAction: UIAlertAction = UIAlertAction(title: "Yes", style: .default) { action -> Void in
-            self.navigationController?.popToRootViewController(animated: true)
-        }
-        alertController.addAction(noAction)
-        alertController.addAction(yesAction)
-        present(alertController, animated: true, completion: nil)
-    }
+//    private func tapCancelButtonAlert() {
+//        let alertController: UIAlertController = UIAlertController(title: "", message: "ToDoの内容が保存されていません。\nホームに戻ってもよろしいですか？", preferredStyle: .alert)
+//        let noAction: UIAlertAction = UIAlertAction(title: "No", style: .cancel) { action -> Void in
+//            alertController.dismiss(animated: false, completion: nil)
+//        }
+//        let yesAction: UIAlertAction = UIAlertAction(title: "Yes", style: .default) { action -> Void in
+//            self.navigationController?.popToRootViewController(animated: true)
+//        }
+//        alertController.addAction(noAction)
+//        alertController.addAction(yesAction)
+//        present(alertController, animated: true, completion: nil)
+//    }
     
     
     
@@ -226,4 +236,3 @@ class ListViewController: UIViewController, UITextViewDelegate {
     
   
 }
-
