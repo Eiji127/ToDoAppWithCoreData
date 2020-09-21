@@ -10,14 +10,14 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--ToDo-->
+        <!--Your ToDo-->
         <scene sceneID="xop-aL-Jxy">
             <objects>
                 <tableViewController storyboardIdentifier="table" id="ZuI-n8-V7W" customClass="TableViewController" customModule="ToDoAppWithCoreData" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="vt6-Gq-91u">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemTealColor"/>
+                        <color key="backgroundColor" systemColor="systemGray5Color"/>
                         <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="AcI-SL-ypU" style="IBUITableViewCellStyleDefault" id="G2b-81-XRn">
@@ -46,17 +46,17 @@
                             <outlet property="delegate" destination="ZuI-n8-V7W" id="e8u-aq-ymy"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="ToDo" id="ANh-U3-NjS">
+                    <navigationItem key="navigationItem" title="Your ToDo" id="ANh-U3-NjS">
                         <rightBarButtonItems>
                             <barButtonItem systemItem="add" id="8QN-oO-n13">
-                                <color key="tintColor" systemColor="systemYellowColor"/>
+                                <color key="tintColor" systemColor="systemOrangeColor"/>
                                 <connections>
                                     <segue destination="BYZ-38-t0r" kind="modal" id="uKH-86-dCm"/>
                                 </connections>
                             </barButtonItem>
                             <barButtonItem tag="1" title="Item" id="tPf-lT-mBr">
                                 <imageReference key="image" image="gear" catalog="system" symbolScale="large"/>
-                                <color key="tintColor" systemColor="systemYellowColor"/>
+                                <color key="tintColor" systemColor="systemOrangeColor"/>
                             </barButtonItem>
                         </rightBarButtonItems>
                     </navigationItem>
@@ -72,13 +72,13 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="aNF-Cb-LYW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" systemColor="linkColor"/>
+                        <color key="backgroundColor" systemColor="systemGray5Color"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <textAttributes key="titleTextAttributes">
-                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </textAttributes>
                         <textAttributes key="largeTitleTextAttributes">
-                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="textColor" systemColor="labelColor"/>
                             <offsetWrapper key="textShadowOffset" horizontal="5" vertical="3"/>
                         </textAttributes>
                     </navigationBar>
@@ -99,7 +99,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="8g9-9E-RdB">
-                                <rect key="frame" x="20" y="80" width="335" height="400"/>
+                                <rect key="frame" x="20" y="70" width="335" height="400"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="9aZ-N7-bT7">
                                         <rect key="frame" x="0.0" y="0.0" width="335" height="54"/>
@@ -250,13 +250,6 @@
                                     <constraint firstAttribute="height" constant="400" id="esV-52-YFZ"/>
                                 </constraints>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="。。。" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ep-VW-ht8">
-                                <rect key="frame" x="163" y="15" width="49" height="19.5"/>
-                                <color key="tintColor" systemColor="systemGray2Color"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
-                                <color key="textColor" systemColor="systemGrayColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gR9-J9-GxQ">
                                 <rect key="frame" x="108" y="534" width="160" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -269,16 +262,24 @@
                                     <action selector="tappedSaveButtonWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="65K-JJ-ySd"/>
                                 </connections>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.compact.down" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="JMW-r9-2T7">
+                                <rect key="frame" x="68" y="27" width="239" height="18"/>
+                                <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="239" id="JeB-Mz-vli"/>
+                                    <constraint firstAttribute="height" constant="31.5" id="Lre-Ng-PVU"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemGray6Color"/>
                         <constraints>
                             <constraint firstItem="8g9-9E-RdB" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="0wq-YA-U1E"/>
+                            <constraint firstItem="JMW-r9-2T7" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="20.5" id="33L-Dq-0vx"/>
                             <constraint firstItem="8g9-9E-RdB" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-21.5" id="5mI-KV-mFa"/>
-                            <constraint firstItem="8g9-9E-RdB" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="80" id="BYs-un-tyW"/>
-                            <constraint firstItem="0ep-VW-ht8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="FKA-yQ-E9q"/>
+                            <constraint firstItem="8g9-9E-RdB" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="70" id="BYs-un-tyW"/>
+                            <constraint firstItem="JMW-r9-2T7" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Hsh-iq-RqL"/>
                             <constraint firstItem="8g9-9E-RdB" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="oCh-5f-6S8"/>
-                            <constraint firstItem="0ep-VW-ht8" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="15" id="pRu-3d-5lL"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="8g9-9E-RdB" secondAttribute="trailing" constant="20" id="tjJ-aY-qTk"/>
                         </constraints>
                     </view>
@@ -309,6 +310,7 @@
         <segue reference="tWH-IY-Rbe"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="chevron.compact.down" catalog="system" width="128" height="43"/>
         <image name="gear" catalog="system" width="128" height="119"/>
         <image name="pencil.and.ellipsis.rectangle" catalog="system" width="128" height="81"/>
         <image name="pencil.and.outline" catalog="system" width="128" height="128"/>
@@ -325,20 +327,14 @@
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
-        <systemColor name="systemGray2Color">
-            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray6Color">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
-        <systemColor name="systemGrayColor">
-            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemTealColor">
-            <color red="0.35294117647058826" green="0.78431372549019607" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemYellowColor">
-            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

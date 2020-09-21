@@ -21,7 +21,7 @@ class TableViewController: UITableViewController {
     }
     
     @IBAction func TappedMaintenaceButton(_ sender: AnyObject) {
-        print("\(myList)")
+        
     }
     
     override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {

@@ -105,6 +105,7 @@ class ListViewController: UIViewController, UITextViewDelegate {
         newItem.endDate = endDatePicker.date
         newItem.endTime = endTimePicker.date
         try! context.save()
+        tableview.reloadData()
         print("\(newItem)")
     }
     
