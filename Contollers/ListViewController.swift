@@ -66,14 +66,14 @@ class ListViewController: UIViewController, UITextViewDelegate {
     }
     
     @IBAction func tappedSaveButton(sender: AnyObject) {
+        let tvc = storyboard?.instantiateViewController(identifier: "table") as? TableViewController
         if (exitingItem != nil) {
             changeToDoContents()
-            print("あら")
         } else {
             createToDoContents()
-            print("でた")
         }
         self.dismiss(animated: true, completion: nil)
+//        tvc?.tableView.reloadData()
 //        let tableViewController = self.storyboard?.instantiateViewController(withIdentifier: "table") as! TableViewController
 //        self.present(tableViewController, animated: true, completion: nil)
         
@@ -85,12 +85,15 @@ class ListViewController: UIViewController, UITextViewDelegate {
 //    }
     
     private func changeToDoContents() {
+        let appDel: AppDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context: NSManagedObjectContext = appDel.managedObjectContext!
         exitingItem.setValue(textFieldItem.text, forKey: "item")
         exitingItem.setValue(detailTextView.text, forKey: "detail")
         exitingItem.setValue(beginDatePicker.date, forKey: "beginDate")
         exitingItem.setValue(beginTimePicker.date, forKey: "beginTime")
         exitingItem.setValue(endDatePicker.date, forKey: "endDate")
         exitingItem.setValue(endTimePicker.date, forKey: "endTime")
+        try! context.save()
     }
     
     private func createToDoContents() {
@@ -105,8 +108,6 @@ class ListViewController: UIViewController, UITextViewDelegate {
         newItem.endDate = endDatePicker.date
         newItem.endTime = endTimePicker.date
         try! context.save()
-        tableview.reloadData()
-        print("\(newItem)")
     }
     
     @IBAction func tapBeginDateButton(_ sender: UIButton) {

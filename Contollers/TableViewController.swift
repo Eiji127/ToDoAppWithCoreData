@@ -12,16 +12,13 @@ class TableViewController: UITableViewController {
         let context: NSManagedObjectContext = appDel.managedObjectContext!
         let freg = NSFetchRequest<NSFetchRequestResult>(entityName: "List")
         myList = try! context.fetch(freg)
-        self.tableView.reloadData()
+        tableView.reloadData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        navigationItem.leftBarButtonItem = editButtonItem
-    }
-    
-    @IBAction func TappedMaintenaceButton(_ sender: AnyObject) {
-        
+        navigationItem.leftBarButtonItem = editButtonItem
+        editButtonItem.tintColor = UIColor.orange
     }
     
     override func tableView(_ tableView: UITableView, shouldIndentWhileEditingRowAt indexPath: IndexPath) -> Bool {
@@ -85,6 +82,6 @@ class TableViewController: UITableViewController {
         }
         
     }
-   
+    
 }
 
