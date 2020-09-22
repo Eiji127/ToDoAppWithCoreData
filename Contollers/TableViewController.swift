@@ -3,11 +3,11 @@ import UIKit
 import CoreData
 
 
-class TableViewController: UITableViewController {
+class TableViewController: UITableViewController, ListViewControllerDelegate {
     
     var myList: Array<AnyObject> = []
     
-    override func viewDidAppear(_ animated: Bool) {
+    func setTableView() {
         let appDel: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         let context: NSManagedObjectContext = appDel.managedObjectContext!
         let freg = NSFetchRequest<NSFetchRequestResult>(entityName: "List")
@@ -67,6 +67,9 @@ class TableViewController: UITableViewController {
             IVC.endDate = selectedItem.value(forKey: "endDate") as? Date
             IVC.endTime = selectedItem.value(forKey: "endTime") as? Date
             IVC.exitingItem = selectedItem
+        } else if segue.identifier == "add" {
+            let IVC: ListViewController = segue.destination as! ListViewController
+            IVC.delegate = self
         }
     }
     
@@ -80,8 +83,24 @@ class TableViewController: UITableViewController {
         } else if editingStyle == .insert {
 
         }
-        
     }
+            
+
+    func tapSaveButton() {
+        print("きた！！")
+        let lvc = ListViewController()
+        if (lvc.exitingItem != nil) {
+            lvc.changeToDoContents()
+        } else {
+            var textFieldItem = lvc.textFieldItem
+            var detailTextView = lvc.detailTextView
+            lvc.createToDoContents()
+        }
+        setTableView()
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    
     
 }
 

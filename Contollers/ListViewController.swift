@@ -2,6 +2,10 @@
 import UIKit
 import CoreData
 
+protocol ListViewControllerDelegate {
+    func tapSaveButton()
+}
+
 
 class ListViewController: UIViewController, UITextViewDelegate {
     
@@ -64,27 +68,12 @@ class ListViewController: UIViewController, UITextViewDelegate {
         endDateButton.setTitle("\(dateFormatter.string(from: endDatePicker.date))", for: UIControl.State.normal)
         endTimeButton.setTitle("\(timeFormatter.string(from: endTimePicker.date))", for: UIControl.State.normal)
     }
-    
-    @IBAction func tappedSaveButton(sender: AnyObject) {
-        let tvc = storyboard?.instantiateViewController(identifier: "table") as? TableViewController
-        if (exitingItem != nil) {
-            changeToDoContents()
-        } else {
-            createToDoContents()
-        }
-        self.dismiss(animated: true, completion: nil)
-//        tvc?.tableView.reloadData()
-//        let tableViewController = self.storyboard?.instantiateViewController(withIdentifier: "table") as! TableViewController
-//        self.present(tableViewController, animated: true, completion: nil)
-        
-//        self.navigationController?.popToRootViewController(animated: true)
-    }
         
 //    @IBAction func tappedCancelButton(sender: AnyObject) {
 //        tapCancelButtonAlert()
 //    }
     
-    private func changeToDoContents() {
+    func changeToDoContents() {
         let appDel: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         let context: NSManagedObjectContext = appDel.managedObjectContext!
         exitingItem.setValue(textFieldItem.text, forKey: "item")
@@ -96,7 +85,7 @@ class ListViewController: UIViewController, UITextViewDelegate {
         try! context.save()
     }
     
-    private func createToDoContents() {
+    func createToDoContents() {
         let appDel: AppDelegate = UIApplication.shared.delegate as! AppDelegate
         let context: NSManagedObjectContext = appDel.managedObjectContext!
         let en = NSEntityDescription.entity(forEntityName: "List", in: context)
@@ -182,6 +171,12 @@ class ListViewController: UIViewController, UITextViewDelegate {
             tapEndTimeButton(endTimeButton)
         }
     }
+    
+    var delegate: ListViewControllerDelegate?
+    @IBAction func tapSaveButton() {
+        delegate?.tapSaveButton()
+    }
+    
     
 //    private func tapCancelButtonAlert() {
 //        let alertController: UIAlertController = UIAlertController(title: "", message: "ToDoの内容が保存されていません。\nホームに戻ってもよろしいですか？", preferredStyle: .alert)

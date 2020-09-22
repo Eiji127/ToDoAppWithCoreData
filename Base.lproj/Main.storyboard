@@ -49,7 +49,8 @@
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="8QN-oO-n13">
                             <color key="tintColor" systemColor="systemOrangeColor"/>
                             <connections>
-                                <segue destination="BYZ-38-t0r" kind="modal" id="uKH-86-dCm"/>
+                                <action selector="tapPlusButton" destination="ZuI-n8-V7W" id="xPd-Zj-azJ"/>
+                                <segue destination="BYZ-38-t0r" kind="modal" identifier="add" id="5tG-aM-lyE"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -252,7 +253,7 @@
                                     <color key="titleColor" systemColor="secondarySystemBackgroundColor"/>
                                 </state>
                                 <connections>
-                                    <action selector="tappedSaveButtonWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="65K-JJ-ySd"/>
+                                    <action selector="tapSaveButton" destination="BYZ-38-t0r" eventType="touchUpInside" id="iuz-rm-MSI"/>
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.compact.down" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="JMW-r9-2T7">
@@ -291,7 +292,7 @@
                         <outlet property="endTimeButton" destination="QT9-Z0-PC6" id="zTp-iM-3BM"/>
                         <outlet property="endTimePicker" destination="bxd-U5-qP7" id="S0K-pG-C19"/>
                         <outlet property="saveButton" destination="gR9-J9-GxQ" id="8Ef-eh-OsT"/>
-                        <outlet property="textFieldItem" destination="B4y-aq-pap" id="8HK-x0-g9C"/>
+                        <outlet property="textFieldItem" destination="B4y-aq-pap" id="qVL-wG-Osv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -300,7 +301,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="tWH-IY-Rbe"/>
+        <segue reference="5tG-aM-lyE"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="chevron.compact.down" catalog="system" width="128" height="43"/>
