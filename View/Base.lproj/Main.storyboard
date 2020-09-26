@@ -19,7 +19,7 @@
                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                         <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="Cell" textLabel="AcI-SL-ypU" style="IBUITableViewCellStyleDefault" id="G2b-81-XRn">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="gray" indentationWidth="10" reuseIdentifier="Cell" textLabel="AcI-SL-ypU" style="IBUITableViewCellStyleDefault" id="G2b-81-XRn">
                                 <rect key="frame" x="16" y="55.5" width="343" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="G2b-81-XRn" id="KCJ-VC-ebJ">
@@ -87,7 +87,7 @@
         <!--List View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ListViewController" customModule="ToDoAppWithCoreData" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="list" id="BYZ-38-t0r" customClass="ListViewController" customModule="ToDoAppWithCoreData" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" ambiguous="YES" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -111,7 +111,7 @@
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ToDo Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hP4-bO-d8M">
                                                         <rect key="frame" x="20" y="0.0" width="315" height="20"/>
-                                                        <fontDescription key="fontDescription" name="Symbol" family="Symbol" pointSize="18"/>
+                                                        <fontDescription key="fontDescription" name="TrebuchetMS-Bold" family="Trebuchet MS" pointSize="18"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -140,7 +140,7 @@
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date and Time" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dno-Lt-Dv1">
                                                         <rect key="frame" x="25" y="0.0" width="310" height="20"/>
-                                                        <fontDescription key="fontDescription" name="Symbol" family="Symbol" pointSize="17"/>
+                                                        <fontDescription key="fontDescription" name="TrebuchetMS-Bold" family="Trebuchet MS" pointSize="18"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -223,7 +223,7 @@
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IQJ-am-g6m">
                                                         <rect key="frame" x="25" y="0.0" width="310" height="20"/>
-                                                        <fontDescription key="fontDescription" name="Symbol" family="Symbol" pointSize="17"/>
+                                                        <fontDescription key="fontDescription" name="TrebuchetMS-Bold" family="Trebuchet MS" pointSize="18"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -237,6 +237,10 @@
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textView>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="k0M-gB-Olh" secondAttribute="bottom" constant="20" id="3AT-s5-fvK"/>
+                                            <constraint firstItem="k0M-gB-Olh" firstAttribute="centerX" secondItem="Kxw-fW-KhH" secondAttribute="centerX" id="JYg-HI-bFu"/>
+                                        </constraints>
                                     </stackView>
                                 </subviews>
                                 <constraints>
@@ -244,10 +248,13 @@
                                     <constraint firstAttribute="height" constant="400" id="esV-52-YFZ"/>
                                 </constraints>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gR9-J9-GxQ">
-                                <rect key="frame" x="108" y="534" width="160" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gR9-J9-GxQ">
+                                <rect key="frame" x="87.5" y="500" width="200" height="40"/>
                                 <color key="backgroundColor" systemColor="linkColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="6mu-84-bi5"/>
+                                    <constraint firstAttribute="width" constant="200" id="BrD-Qq-eZd"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" name="Futura-Bold" family="Futura" pointSize="17"/>
                                 <state key="normal" title="Save">
                                     <color key="titleColor" systemColor="secondarySystemBackgroundColor"/>
@@ -273,6 +280,8 @@
                             <constraint firstItem="8g9-9E-RdB" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="-21.5" id="5mI-KV-mFa"/>
                             <constraint firstItem="8g9-9E-RdB" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="70" id="BYs-un-tyW"/>
                             <constraint firstItem="JMW-r9-2T7" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Hsh-iq-RqL"/>
+                            <constraint firstItem="gR9-J9-GxQ" firstAttribute="top" secondItem="8g9-9E-RdB" secondAttribute="bottom" constant="30" id="Jny-OD-JTS"/>
+                            <constraint firstItem="gR9-J9-GxQ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="be6-Lx-NzC"/>
                             <constraint firstItem="8g9-9E-RdB" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="oCh-5f-6S8"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="8g9-9E-RdB" secondAttribute="trailing" constant="20" id="tjJ-aY-qTk"/>
                         </constraints>
