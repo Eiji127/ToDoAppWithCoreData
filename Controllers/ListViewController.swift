@@ -2,6 +2,10 @@
 import UIKit
 import CoreData
 
+protocol ListViewControllerDelegate {
+    func tapSaveButton(item: String, detail: String, beginDate: Date, beginTime: Date, endDate: Date, endTime: Date, exitingItem: NSManagedObject?)
+}
+
 
 class ListViewController: UIViewController, UITextViewDelegate {
     
@@ -11,15 +15,15 @@ class ListViewController: UIViewController, UITextViewDelegate {
     public var beginTime: Date!
     public var endDate: Date!
     public var endTime: Date!
-    public var exitingItem: NSManagedObject!
+    public var exitingItem: NSManagedObject?
     
     @IBOutlet var textFieldItem: UITextField!
     @IBOutlet var detailTextView: UITextView!
+    @IBOutlet var saveButton: UIButton!
     
     let dateFormatter = DateFormatter()
     let timeFormatter = DateFormatter()
     
-    @IBOutlet var scrollView: UIScrollView?
     @IBOutlet var beginDatePicker: UIDatePicker!
     @IBOutlet var beginTimePicker: UIDatePicker!
     @IBOutlet var beginDateButton: UIButton!
@@ -32,6 +36,8 @@ class ListViewController: UIViewController, UITextViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        saveButton.layer.cornerRadius = 10
         
 //        detailTextView.delegate = self
         
@@ -62,42 +68,7 @@ class ListViewController: UIViewController, UITextViewDelegate {
         endDateButton.setTitle("\(dateFormatter.string(from: endDatePicker.date))", for: UIControl.State.normal)
         endTimeButton.setTitle("\(timeFormatter.string(from: endTimePicker.date))", for: UIControl.State.normal)
     }
-    
-    @IBAction func tappedSaveButton(sender: AnyObject) {
-        if (exitingItem != nil) {
-            changeToDoContents()
-        } else {
-            createToDoContents()
-        }
-        self.navigationController?.popToRootViewController(animated: true)
-    }
-    
-    @IBAction func tappedCancelButton(sender: AnyObject) {
-        tapCancelButtonAlert()
-    }
-    
-    private func changeToDoContents() {
-        exitingItem.setValue(textFieldItem.text, forKey: "item")
-        exitingItem.setValue(detailTextView.text, forKey: "detail")
-        exitingItem.setValue(beginDatePicker.date, forKey: "beginDate")
-        exitingItem.setValue(beginTimePicker.date, forKey: "beginTime")
-        exitingItem.setValue(endDatePicker.date, forKey: "endDate")
-        exitingItem.setValue(endTimePicker.date, forKey: "endTime")
-    }
-    
-    private func createToDoContents() {
-        let appDel: AppDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context: NSManagedObjectContext = appDel.managedObjectContext!
-        let en = NSEntityDescription.entity(forEntityName: "List", in: context)
-        let newItem = Model(entity: en!, insertInto: context)
-        newItem.item = textFieldItem.text
-        newItem.detail = detailTextView.text
-        newItem.beginDate = beginDatePicker.date
-        newItem.beginTime = beginTimePicker.date
-        newItem.endDate = endDatePicker.date
-        newItem.endTime = endTimePicker.date
-    }
-    
+
     @IBAction func tapBeginDateButton(_ sender: UIButton) {
         if !self.beginTimePicker.isHidden {
             tapBeginTimeButton(beginTimeButton)
@@ -171,59 +142,10 @@ class ListViewController: UIViewController, UITextViewDelegate {
         }
     }
     
-    private func tapCancelButtonAlert() {
-        let alertController: UIAlertController = UIAlertController(title: "", message: "ToDoの内容が保存されていません。\nホームに戻ってもよろしいですか？", preferredStyle: .alert)
-        let noAction: UIAlertAction = UIAlertAction(title: "No", style: .cancel) { action -> Void in
-            alertController.dismiss(animated: false, completion: nil)
-        }
-        let yesAction: UIAlertAction = UIAlertAction(title: "Yes", style: .default) { action -> Void in
-            self.navigationController?.popToRootViewController(animated: true)
-        }
-        alertController.addAction(noAction)
-        alertController.addAction(yesAction)
-        present(alertController, animated: true, completion: nil)
+    var delegate: ListViewControllerDelegate?
+    @IBAction func tapSaveButton() {
+        delegate?.tapSaveButton(item: textFieldItem.text!, detail: detailTextView.text!, beginDate: beginDatePicker.date, beginTime: beginTimePicker.date, endDate: endDatePicker.date, endTime: endTimePicker.date, exitingItem: exitingItem)
+        dismiss(animated: true, completion: nil)
     }
     
-    
-    
-//    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-//        setupNotificationObserver()
-//        return true
-//    }
-    
-//    func setupNotificationObserver() {
-//        NotificationCenter.default.addObserver(self, selector: #selector(showKeyboard), name: UIResponder.keyboardWillShowNotification, object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(hideKeyboard), name: UIResponder.keyboardWillHideNotification, object: nil)
-//    }
-//
-//    @objc func showKeyboard(notification: Notification) {
-////        let userInfo = notification.userInfo!
-////        let keyboardScreenEndFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-////        let myBoundSize: CGSize = UIScreen.main.bounds.size
-////        let txtLimit = detailTextView.frame.origin.y + detailTextView.frame.height + 8.0
-////        let kbdLimit = myBoundSize.height - keyboardScreenEndFrame.size.height
-////        let distance = txtLimit - kbdLimit
-////        print("テキストフィールドの下辺：(\(txtLimit))")
-////        print("キーボードの上辺：(\(kbdLimit))")
-////
-////        let transform = CGAffineTransform(translationX: 0, y: distance)
-////        if txtLimit >= kbdLimit {
-////            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: [], animations: {
-////                self.view.transform = transform
-////            })
-////        }
-//        let transform = CGAffineTransform(translationX: 0, y: 300)
-//        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: [], animations: {
-//            self.view.transform = transform
-//        })
-//
-//    }
-//    @objc func hideKeyboard() {
-//        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: [], animations: {
-//            self.view.transform = .identity
-//        })
-//    }
-    
-  
 }
-
