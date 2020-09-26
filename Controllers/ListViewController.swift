@@ -33,58 +33,75 @@ class ListViewController: UIViewController, UITextViewDelegate {
     @IBOutlet var endDateButton: UIButton!
     @IBOutlet var endTimeButton: UIButton!
     
-
+    var delegate: ListViewControllerDelegate?
+    
+    
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         
-        saveButton.layer.cornerRadius = 10
-        
-//        detailTextView.delegate = self
-        
         if(exitingItem != nil){
+            
             textFieldItem.text = item
             detailTextView.text = detail
             beginDatePicker.date = beginDate!
             beginTimePicker.date = beginTime!
             endDatePicker.date = endDate!
             endTimePicker.date = endTime!
+            
         }
         setDateAndTime()
         setDetailTextView()
     }
     
+    
     private func setDetailTextView() {
+        
         detailTextView.layer.borderColor = UIColor.black.cgColor
-        detailTextView.layer.borderWidth = 1.0
+        detailTextView.layer.borderWidth = 1
         detailTextView.layer.cornerRadius = 10
         detailTextView.layer.masksToBounds = true
+        
     }
     
     private func setDateAndTime() {
+        
         dateFormatter.setLocalizedDateFormatFromTemplate("yMMdE")
         timeFormatter.setLocalizedDateFormatFromTemplate("jm")
         beginDateButton.setTitle("\(dateFormatter.string(from: beginDatePicker.date))", for: UIControl.State.normal)
         beginTimeButton.setTitle("\(timeFormatter.string(from: beginTimePicker.date))", for: UIControl.State.normal)
         endDateButton.setTitle("\(dateFormatter.string(from: endDatePicker.date))", for: UIControl.State.normal)
         endTimeButton.setTitle("\(timeFormatter.string(from: endTimePicker.date))", for: UIControl.State.normal)
+        
     }
-
+    
+    
     @IBAction func tapBeginDateButton(_ sender: UIButton) {
+        
         if !self.beginTimePicker.isHidden {
+            
             tapBeginTimeButton(beginTimeButton)
+            
         } else if !self.endDatePicker.isHidden {
+            
             tapEndDateButton(endDateButton)
+            
         } else if !self.endTimePicker.isHidden {
+            
             tapEndTimeButton(endTimeButton)
+            
         }
+        
         UIView.animate(withDuration: 0.1, animations: {
             self.beginDatePicker.isHidden = !self.beginDatePicker.isHidden
         })
         dateFormatter.setLocalizedDateFormatFromTemplate("yMMdE")
         beginDateButton.setTitle("\(dateFormatter.string(from: beginDatePicker.date))", for: UIControl.State.normal)
+        
     }
-       
+    
     @IBAction func tapBeginTimeButton(_ sender: UIButton) {
+        
         if !self.beginDatePicker.isHidden {
             tapBeginDateButton(beginDateButton)
         } else if !self.endDatePicker.isHidden {
@@ -97,9 +114,11 @@ class ListViewController: UIViewController, UITextViewDelegate {
         })
         timeFormatter.setLocalizedDateFormatFromTemplate("jm")
         beginTimeButton.setTitle("\(timeFormatter.string(from: beginTimePicker.date))", for: UIControl.State.normal)
+        
     }
-       
+    
     @IBAction func tapEndDateButton(_ sender: UIButton) {
+        
         if !self.beginDatePicker.isHidden {
             tapBeginDateButton(beginDateButton)
         } else if !self.beginTimePicker.isHidden{
@@ -112,9 +131,11 @@ class ListViewController: UIViewController, UITextViewDelegate {
         })
         dateFormatter.setLocalizedDateFormatFromTemplate("yMMdE")
         endDateButton.setTitle("\(dateFormatter.string(from: endDatePicker.date))", for: UIControl.State.normal)
+        
     }
-       
+    
     @IBAction func tapEndTimeButton(_ sender: UIButton) {
+        
         if !self.beginDatePicker.isHidden {
             tapBeginDateButton(beginDateButton)
         } else if !self.beginTimePicker.isHidden{
@@ -127,9 +148,11 @@ class ListViewController: UIViewController, UITextViewDelegate {
         })
         dateFormatter.setLocalizedDateFormatFromTemplate("yMMdE")
         endTimeButton.setTitle("\(timeFormatter.string(from: endTimePicker.date))", for: UIControl.State.normal)
+        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
         self.view.endEditing(true)
         if !self.beginDatePicker.isHidden {
             tapBeginDateButton(beginDateButton)
@@ -140,12 +163,16 @@ class ListViewController: UIViewController, UITextViewDelegate {
         } else if !self.endTimePicker.isHidden {
             tapEndTimeButton(endTimeButton)
         }
+        
     }
     
-    var delegate: ListViewControllerDelegate?
     @IBAction func tapSaveButton() {
+        
         delegate?.tapSaveButton(item: textFieldItem.text!, detail: detailTextView.text!, beginDate: beginDatePicker.date, beginTime: beginTimePicker.date, endDate: endDatePicker.date, endTime: endTimePicker.date, exitingItem: exitingItem)
         dismiss(animated: true, completion: nil)
+        
     }
     
 }
+
+

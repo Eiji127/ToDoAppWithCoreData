@@ -21,6 +21,7 @@ class TableViewController: UITableViewController, ListViewControllerDelegate {
         
         super.viewDidLoad()
         
+        
         navigationItem.leftBarButtonItem = editButtonItem
         editButtonItem.tintColor = UIColor.orange
         
