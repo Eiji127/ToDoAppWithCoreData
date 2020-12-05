@@ -8,14 +8,18 @@
 ![twitterBadge](https://img.shields.io/badge/twitter-@cychow__app-red?style=plastic)
 
 ## Overview
-- manage your tasks of one day
-- 
+- Manage your tasks of one day
+- Edit your saved data
+- Change the order of some tasks
+
 ## Requirement
 ・ Xcode 12.1  
 ・ Swift 5.3.1
 
 ## Feature
-
+- Save tasks
+- Register dates and times 
+- 
 ## Description
 Use of CoreData
 
