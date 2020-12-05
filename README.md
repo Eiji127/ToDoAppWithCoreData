@@ -19,6 +19,7 @@
 ## Feature
 - Save tasks
 - Register dates and times 
+- Delete tasks
 - 
 ## Description
 Use of CoreData
