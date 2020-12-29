@@ -8,8 +8,9 @@ protocol ListViewControllerDelegate: class{
     
 }
 
-
-class ListViewController: UIViewController, UITextViewDelegate {
+class ListViewController: UIViewController {
+    
+    // MARK: - Properties
     
     var item: String = ""
     var detail: String = ""
@@ -23,8 +24,8 @@ class ListViewController: UIViewController, UITextViewDelegate {
     @IBOutlet var detailTextView: UITextView!
     @IBOutlet var saveButton: UIButton!
     
-    let dateFormatter = DateFormatter()
-    let timeFormatter = DateFormatter()
+    private let dateFormatter = DateFormatter()
+    private let timeFormatter = DateFormatter()
     
     @IBOutlet var beginDatePicker: UIDatePicker!
     @IBOutlet var beginTimePicker: UIDatePicker!
@@ -37,18 +38,25 @@ class ListViewController: UIViewController, UITextViewDelegate {
     
     weak var delegate: ListViewControllerDelegate?
     
+    // MARK: - Lifecycle
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
         
-        setUpCustomTableView()
+        saveButton.layer.cornerRadius = 20.0
+        
+        setCustomTableView()
         setDateAndTime()
         setUpDetailTextView()
         
+        overrideUserInterfaceStyle = .light
+        
     }
     
-    private func setUpCustomTableView() {
+    // MARK: - Helpers
+    
+    func setCustomTableView() {
         
         if (exitingItem != nil){
             let record = Record(title: item, detail: detail, beginDate: beginDate!, beginTime: beginTime!, endDate: endDate!, endTime: endTime!)
@@ -65,7 +73,7 @@ class ListViewController: UIViewController, UITextViewDelegate {
     }
     
     
-    private func setUpDetailTextView() {
+    func setUpDetailTextView() {
         
         detailTextView.layer.borderColor = UIColor.black.cgColor
         detailTextView.layer.borderWidth = 1
@@ -74,7 +82,7 @@ class ListViewController: UIViewController, UITextViewDelegate {
         
     }
     
-    private func setDateAndTime() {
+    func setDateAndTime() {
         
         dateFormatter.setLocalizedDateFormatFromTemplate("yMMdE")
         timeFormatter.setLocalizedDateFormatFromTemplate("jm")
@@ -183,6 +191,17 @@ class ListViewController: UIViewController, UITextViewDelegate {
         
     }
     
+    @IBAction func tapSaveButton() {
+        
+        delegate?.tapSaveButton(item: textFieldItem.text!, detail: detailTextView.text!, beginDate: beginDatePicker.date, beginTime: beginTimePicker.date, endDate: endDatePicker.date, endTime: endTimePicker.date, exitingItem: exitingItem)
+        dismiss(animated: true, completion: nil)
+        
+    }
+}
+
+// MARK: - UITextViewDelegate
+
+extension ListViewController: UITextViewDelegate {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         self.view.endEditing(true)
@@ -195,29 +214,7 @@ class ListViewController: UIViewController, UITextViewDelegate {
         } else if !self.endTimePicker.isHidden {
             tapEndTimeButton(endTimeButton)
         }
-        
     }
-    
-    @IBAction func tapSaveButton() {
-        
-        delegate?.tapSaveButton(item: textFieldItem.text!, detail: detailTextView.text!, beginDate: beginDatePicker.date, beginTime: beginTimePicker.date, endDate: endDatePicker.date, endTime: endTimePicker.date, exitingItem: exitingItem)
-        dismiss(animated: true, completion: nil)
-        
-    }
-    
-//    func setRecord(_ : Record) {
-//        
-//        let record = Record(title: item, detail: detail, beginDate: beginDate!, beginTime: beginTime!, endDate: endDate!, endTime: endTime!)
-//        
-//        textFieldItem.text = record.title
-//        detailTextView.text = record.detail
-//        beginDatePicker.date = record.beginDate
-//        beginTimePicker.date = record.beginTime
-//        endDatePicker.date = record.endDate
-//        endTimePicker.date = record.endTime
-//        
-//    }
-    
 }
 
 

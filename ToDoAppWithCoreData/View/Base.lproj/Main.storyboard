@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Your ToDo-->
+        <!--Table View Controller-->
         <scene sceneID="xop-aL-Jxy">
             <objects>
                 <tableViewController storyboardIdentifier="table" id="ZuI-n8-V7W" customClass="TableViewController" customModule="ToDoAppWithCoreData" customModuleProvider="target" sceneMemberID="viewController">
@@ -19,7 +19,7 @@
                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                         <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="gray" indentationWidth="10" reuseIdentifier="Cell" textLabel="AcI-SL-ypU" style="IBUITableViewCellStyleDefault" id="G2b-81-XRn">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" reuseIdentifier="Cell" textLabel="AcI-SL-ypU" style="IBUITableViewCellStyleDefault" id="G2b-81-XRn">
                                 <rect key="frame" x="16" y="55.5" width="343" height="43.5"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="G2b-81-XRn" id="KCJ-VC-ebJ">
@@ -29,7 +29,7 @@
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="AcI-SL-ypU">
                                             <rect key="frame" x="16" y="0.0" width="311" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                            <fontDescription key="fontDescription" name="Verdana-Bold" family="Verdana" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -45,7 +45,7 @@
                             <outlet property="delegate" destination="ZuI-n8-V7W" id="e8u-aq-ymy"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Your ToDo" id="ANh-U3-NjS">
+                    <navigationItem key="navigationItem" id="ANh-U3-NjS">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="8QN-oO-n13">
                             <color key="tintColor" systemColor="systemOrangeColor"/>
                             <connections>
@@ -63,17 +63,18 @@
         <scene sceneID="4IB-iz-y4g">
             <objects>
                 <navigationController id="Gxw-ab-t4h" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" largeTitles="YES" id="aNF-Cb-LYW">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="aNF-Cb-LYW">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" systemColor="systemGray5Color"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="barTintColor" systemColor="systemGray5Color"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </textAttributes>
                         <textAttributes key="largeTitleTextAttributes">
                             <color key="textColor" systemColor="labelColor"/>
-                            <offsetWrapper key="textShadowOffset" horizontal="5" vertical="3"/>
+                            <offsetWrapper key="textShadowOffset" horizontal="3" vertical="3"/>
                         </textAttributes>
                     </navigationBar>
                     <connections>
@@ -109,7 +110,7 @@
                                                             <constraint firstAttribute="width" constant="20" id="Nrc-kv-Pfh"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ToDo Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hP4-bO-d8M">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TODO Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hP4-bO-d8M">
                                                         <rect key="frame" x="20" y="0.0" width="315" height="20"/>
                                                         <fontDescription key="fontDescription" name="TrebuchetMS-Bold" family="Trebuchet MS" pointSize="18"/>
                                                         <nil key="textColor"/>
